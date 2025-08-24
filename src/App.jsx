@@ -1,12 +1,9 @@
 import { useState } from "react";
 import "./App.css";
-import Counter from "./components/Counter";
 
 function App() {
-  const [counter, setCounter] = useState(0);
-  const [model, setModel] = useState(1);
+  const [array, setArray] = useState([0]);
 
-  console.log(counter);
   return (
     <>
       <header>
@@ -24,16 +21,98 @@ function App() {
         </svg>
         <h1>React Counter V2</h1>
       </header>
+
       <button
         className="addCounter"
         onClick={() => {
-          setModel(model + 1);
+          if (array.length < 3) {
+            const copy = [...array];
+            copy.push(0);
+            setArray(copy);
+          }
         }}
       >
         Add counter
       </button>
-      <Counter counter={counter} setCounter={setCounter} />
-      {model > 1 && <Counter counter={counter} setCounter={setCounter} />}
+      <main>
+        {array.map((element, index) => {
+          return (
+            <section key={index}>
+              <div>
+                <button
+                  onClick={() => {
+                    if (array[index] > 0) {
+                      const copy = [...array];
+                      copy[index] = element - 1;
+                      setArray(copy);
+                    }
+                  }}
+                >
+                  <svg
+                    width="53"
+                    height="60"
+                    viewBox="0 0 53 60"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_1_43)">
+                      <path
+                        d="M48.75 24.375H3.75C1.6793 24.375 0 26.0543 0 28.125V31.875C0 33.9457 1.6793 35.625 3.75 35.625H48.75C50.8207 35.625 52.5 33.9457 52.5 31.875V28.125C52.5 26.0543 50.8207 24.375 48.75 24.375Z"
+                        fill="black"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_1_43">
+                        <rect width="52.5" height="60" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </button>
+                <p>{element}</p>
+                <button
+                  onClick={() => {
+                    if (array[index] < 10) {
+                      const copy = [...array];
+                      copy[index] = element + 1;
+                      setArray(copy);
+                    }
+                  }}
+                >
+                  <svg
+                    width="53"
+                    height="60"
+                    viewBox="0 0 53 60"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_1_45)">
+                      <path
+                        d="M48.75 24.375H31.875V7.5C31.875 5.4293 30.1957 3.75 28.125 3.75H24.375C22.3043 3.75 20.625 5.4293 20.625 7.5V24.375H3.75C1.6793 24.375 0 26.0543 0 28.125V31.875C0 33.9457 1.6793 35.625 3.75 35.625H20.625V52.5C20.625 54.5707 22.3043 56.25 24.375 56.25H28.125C30.1957 56.25 31.875 54.5707 31.875 52.5V35.625H48.75C50.8207 35.625 52.5 33.9457 52.5 31.875V28.125C52.5 26.0543 50.8207 24.375 48.75 24.375Z"
+                        fill="black"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_1_45">
+                        <rect width="52.5" height="60" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </button>
+              </div>
+              <button
+                className="reset"
+                onClick={() => {
+                  const copy = [...array];
+                  copy[index] = 0;
+                  setArray(copy);
+                }}
+              >
+                Reset
+              </button>
+            </section>
+          );
+        })}
+      </main>
       <footer>
         <div>
           Made with <span>React</span> at <span>Le Reacteur</span> by{" "}
